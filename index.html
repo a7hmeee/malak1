@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مبروك ملاك!</title>
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --pink: #FFEBF0;
+            --lavender: #E4DAF7;
+            --gold: #FFD88C;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --text-dark: #333;
+            --text-light: #fff;
+            --arabic-font: 'Scheherazade New', serif;
+            --title-font: 'El Messiri', sans-serif;
+            
+            /* Dark mode variables */
+            --dark-bg: #1A1A2E;
+            --dark-card: #16213E;
+            --dark-text: #E6E6FA;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        body {
+            font-family: var(--arabic-font);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            position: relative;
+            background-color: white;
+            font-size: 1.2rem;
+        }
+        
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Animated Gradient Background */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, var(--pink), var(--lavender), var(--pink));
+            background-size: 400% 400%;
+            animation: gradient 20s ease infinite;
+            z-index: -2;
+            opacity: 0.9;
+        }
+        
+        .dark-mode .gradient-bg {
+            opacity: 0.2;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Particle Fog */
+        .particle-fog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        .dark-mode .particle {
+            background-color: rgba(230, 230, 250, 0.2);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+        }
+
+        /* Quran Verse */
+        .quran-verse {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px var(--shadow);
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 80%;
+            z-index: 5;
+            backdrop-filter: blur(5px);
+        }
+        
+        .dark-mode .quran-verse {
+            background: rgba(22, 33, 62, 0.8);
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--title-font);
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .music-control {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--gold);
+            font-size: 1.2rem;
+            box-shadow: 0 2px 5px var(--shadow);
+        }
+        
+        .dark-mode .music-control {
+            background: rgba(25, 25, 45, 0.8);
+        }
+        
+        /* Language Tabs */
+        .language-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .language-tab {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 30px;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            font-family: var(--title-font);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .language-tab.active {
+            background: var(--gold);
+            color: white;
+        }
+        
+        .language-content {
+            display: none;
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            margin: 1rem auto;
+            max-width: 800px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .language-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: var(--title-font);
+            font-size: 3.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 3px var(--shadow);
+            line-height: 1.3;
+        }
+        
+        .dark-mode h1 {
+            color: var(--text-light);
+        }
+        
+        .portrait-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 2rem 0;
+        }
+        
+        .portrait {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .dark-mode .portrait {
+            border-color: var(--dark-card);
+        }
+        
+        .portrait-progress {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            transform: rotate(-90deg);
+            z-index: 1;
+        }
+        
+        .portrait-progress-circle {
+            stroke-dasharray: 565.48; /* 2πr (r=90) */
+            stroke-dashoffset: 565.48;
+            stroke: var(--gold);
+            stroke-width: 8;
+            fill: transparent;
+            stroke-linecap: round;
+        }
+        
+        .hero-subtitle {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+        
+        .dark-mode .hero-subtitle {
+            color: var(--dark-text);
+        }
+        
+        /* Achievement Card */
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem auto;
+            max-width: 500px;
+            box-shadow: 0 10px 30px var(--shadow);
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .dark-mode .achievement-card {
+            background: rgba(22, 33, 62, 0.8);
+            color: var(--dark-text);
+        }
+        
+        .achievement-percent {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--gold), #ff9a00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 216, 140, 0.3);
+            font-family: var(--title-font);
+        }
+        
+        .dark-mode .achievement-percent {
+            text-shadow: 0 0 10px rgba(255, 216, 140, 0.6);
+        }
+        
+        .achievement-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-family: var(--title-font);
+        }
+        
+        .dark-mode .achievement-subtitle {
+            color: var(--dark-text);
+        }
+        
+        .achievement-quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        /* Photo Carousel */
+        .carousel-section {
+            padding: 3rem 1rem;
+            margin: 3rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--text-dark);
+            font-family: var(--title-font);
+        }
+        
+        .dark-mode .section-title {
+            color: var(--dark-text);
+        }
+        
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 1rem 0;
+            gap: 1.5rem;
+            padding: 1rem 2rem;
+        }
+        
+        .carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .carousel::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        .carousel::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 10px;
+        }
+        
+        .carousel-item {
+            scroll-snap-align: start;
+            flex: 0 0 300px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .dark-mode .carousel-item {
+            background: var(--dark-card);
+        }
+        
+        .carousel-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .carousel-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .carousel-caption {
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .carousel-caption h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-family: var(--title-font);
+        }
+        
+        .dark-mode .carousel-caption h3 {
+            color: var(--dark-text);
+        }
+        
+        /* Interactive Icons */
+        .interactive-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .icon-container {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .icon-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .interactive-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode .interactive-icon {
+            background: rgba(22, 33, 62, 0.8);
+        }
+        
+        .icon-container:hover .interactive-icon {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--gold);
+        }
+        
+        /* Reaction Wall */
+        .reaction-wall {
+            min-height: 200px;
+            position: relative;
+            overflow: hidden;
+            margin: 3rem 0;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .dark-mode .reaction-wall {
+            background: rgba(22, 33, 62, 0.5);
+        }
+        
+        .reaction-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: floatUp 5s linear forwards;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-200px) rotate(20deg); opacity: 0; }
+        }
+        
+        /* Buttons with Ripple Effect */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--gold);
+            color: #333;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s ease;
+            margin: 1rem;
+            font-family: var(--title-font);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        
+        /* Social Share Panel */
+        .social-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow);
+            z-index: 100;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .dark-mode .social-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+        
+        .social-panel.active {
+            display: block;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        .close-social {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .facebook { background: #3b5998; }
+        .twitter { background: #1DA1F2; }
+        .whatsapp { background: #25D366; }
+        
+        /* Thank You Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        .dark-mode .modal-content {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .modal-title {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+            font-family: var(--title-font);
+        }
+        
+        .modal-message {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        /* Footer Marquee */
+        footer {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem 0;
+            margin-top: 3rem;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        .dark-mode footer {
+            background: rgba(22, 33, 62, 0.8);
+        }
+        
+        .marquee {
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+            display: inline-block;
+            padding-right: 100%;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Watermark Seal */
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            opacity: 0.7;
+            font-family: var(--title-font);
+            font-size: 1.5rem;
+            color: var(--gold);
+            transform: rotate(-10deg);
+            pointer-events: none;
+            text-shadow: 0 0 5px var(--shadow);
+            animation: gentlePulse 4s infinite ease-in-out;
+        }
+        
+        @keyframes gentlePulse {
+            0% { transform: rotate(-10deg) scale(1); }
+            50% { transform: rotate(-10deg) scale(1.05); }
+            100% { transform: rotate(-10deg) scale(1); }
+        }
+        
+        /* Islamic Pattern Overlay */
+        .islamic-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="none" stroke="%23FFD88C" stroke-width="0.5" d="M0,0 L100,100 M100,0 L0,100 M50,0 L50,100 M0,50 L100,50" opacity="0.1"/></svg>');
+            background-size: 100px 100px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        
+        /* Date in Hijri */
+        .hijri-date {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px var(--shadow);
+            backdrop-filter: blur(5px);
+            font-family: var(--title-font);
+        }
+        
+        .dark-mode .hijri-date {
+            background: rgba(22, 33, 62, 0.8);
+        }
+        
+        /* Confetti Effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: confettiFall 5s linear forwards;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .portrait-container {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .portrait {
+                width: 140px;
+                height: 140px;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .achievement-percent {
+                font-size: 4rem;
+            }
+            
+            .achievement-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .carousel-item {
+                flex: 0 0 250px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quran-verse {
+                font-size: 0.9rem;
+                padding: 0.8rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    <div class="islamic-pattern"></div>
+    <div class="particle-fog" id="particleFog"></div>
+    
+    <header>
+        <div class="logo">
+            <i class="fas fa-star"></i>
+            <span>مبروك ملاك</span>
+        </div>
+        <button class="music-control" id="musicControl">
+            <i class="fas fa-music"></i>
+        </button>
+    </header>
+    
+    <div class="hijri-date" id="hijriDate"></div>
+    
+    <section class="hero">
+        <h1>مبروك ملاك! <br> <span style="font-size: 0.8em;">تفوقك بـ 87%</span></h1>
+        
+        <div class="portrait-container">
+            <!-- Placeholder for portrait - replace with actual image -->
+            
+            <svg class="portrait-progress" width="200" height="200">
+                <circle class="portrait-progress-circle" r="90" cx="100" cy="100"></circle>
+            </svg>
+        </div>
+        
+        <p class="hero-subtitle">
+            إنجازك الباهر بنسبة 87% هو شهادة على تفانيكِ وعزيمتكِ القوية. بارك الله في جهودكِ وأسعدكِ كما أسعدتنا بتفوقكِ.
+        </p>
+    </section>
+    
+    <section class="achievement-card">
+        <div class="achievement-percent">87%</div>
+        <h2 class="achievement-subtitle">شهادة تفوق</h2>
+        <p class="achievement-quote">
+            "التميز ليس مهارة، بل هو موقف يلهم كل من حولك. مبارك لكِ هذا الإنجاز الرائع!"
+        </p>
+    </section>
+    
+    <!-- Language Tabs Section -->
+    <div class="language-tabs">
+        <button class="language-tab active" data-lang="arabic">عربي</button>
+        <button class="language-tab" data-lang="english">English</button>
+        <button class="language-tab" data-lang="russian">Русский</button>
+    </div>
+    
+    <div class="language-content active" id="arabic-content">
+        <h3>تهنئة خاصة باللغة العربية</h3>
+        <p>ملاك ة،</p>
+        <p>بكل فخر واعتزاز، أهنئكِ على تحقيقكِ نسبة 87% في دراستكِ. هذا الإنجاز ليس مجرد رقم، بل هو دليل على مثابرتكِ، تفانيكِ، وإصراركِ على التميز.</p>
+        <p>لقد أظهرتِ خلال رحلتكِ الأكاديمية أن الإرادة القوية والعمل الجاد هما مفتاح النجاح. بارك الله في علمكِ وجهدكِ، وجعل هذا التفوق بداية لمزيد من الإنجازات.</p>
+        <p>دمتِ نبراساً للتميز ومثالاً يُحتذى به!</p>
+    </div>
+    
+    <div class="language-content" id="english-content">
+        <h3>Special Congratulations in English</h3>
+        <p> Malak,</p>
+        <p>With great pride and admiration, I congratulate you on achieving 87% in your studies. This accomplishment is not just a number, but a testament to your perseverance, dedication, and commitment to excellence.</p>
+        <p>Throughout your academic journey, you have demonstrated that strong willpower and hard work are the keys to success. May God bless your knowledge and efforts, and may this achievement be the beginning of many more to come.</p>
+        <p>May you continue to shine as a beacon of excellence and an example to follow!</p>
+    </div>
+    
+    <div class="language-content" id="russian-content">
+        <h3>Специальные поздравления на русском</h3>
+        <p> Маляк,</p>
+        <p>С большой гордостью и восхищением поздравляю тебя с достижением 87% в твоей учебе. Это достижение - не просто цифра, а свидетельство твоей настойчивости, преданности и стремления к совершенству.</p>
+        <p>На протяжении всего твоего академического пути ты демонстрировала, что сильная воля и упорный труд являются ключами к успеху. Да благословит Бог твои знания и усилия, и пусть это достижение станет началом многих других.</p>
+        <p>Пусть ты и дальше сияешь, как маяк совершенства и пример для подражания!</p>
+    </div>
+    
+    <section class="carousel-section">
+        <h2 class="section-title">رحلة التفوق</h2>
+        <div class="carousel">
+            <div class="carousel-item">
+                
+                <div class="carousel-caption">
+                    <h3>التميز الأكاديمي</h3>
+                    <p>السعي الدائم لأعلى المعايير</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                
+                <div class="carousel-caption">
+                    <h3>مرشدة داعمة</h3>
+                    <p>مساعدة الآخرين لتحقيق إمكاناتهم</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                
+                <div class="carousel-caption">
+                    <h3>تكريم وجوائز</h3>
+                    <p>الاحتفال بالإنجازات المستحقة</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                
+                <div class="carousel-caption">
+                    <h3>أهداف مستقبلية</h3>
+                    <p>الاستعداد لإنجازات أكبر</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="interactive-icons">
+        <div class="icon-container">
+            <div class="interactive-icon"><i class="fas fa-book-quran"></i></div>
+            <p>الاجتهاد</p>
+        </div>
+        <div class="icon-container">
+            <div class="interactive-icon"><i class="fas fa-graduation-cap"></i></div>
+            <p>التفوق</p>
+        </div>
+        <div class="icon-container">
+            <div class="interactive-icon"><i class="fas fa-lightbulb"></i></div>
+            <p>الحكمة</p>
+        </div>
+        <div class="icon-container">
+            <div class="interactive-icon"><i class="fas fa-star"></i></div>
+            <p>التميز</p>
+        </div>
+    </section>
+    
+    <section class="reaction-wall">
+        <h2 class="section-title">أرسل تهنئتك!</h2>
+        <p>اضغط في أي مكان لإضافة إيموجي احتفالي</p>
+    </section>
+    
+    <div class="button-group">
+        <button class="btn" id="thankYouBtn">اقرأ رسالتي</button>
+        <button class="btn" id="shareBtn">شارك التهنئة</button>
+    </div>
+    
+    <footer>
+        <div class="marquee">
+            � إنجاز ملاك 87% - فخر وتهنئة! 🎉 &nbsp;&nbsp;&nbsp;
+            🎉 إنجاز ملاك 87% - فخر وتهنئة! 🎉 &nbsp;&nbsp;&nbsp;
+        </div>
+    </footer>
+    
+    <div class="quran-verse">
+        "وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ" (التوبة: 105)
+    </div>
+    
+    <div class="watermark">ملاك 87%</div>
+    
+    <!-- Social Share Panel -->
+    <div class="social-panel" id="socialPanel">
+        <span class="close-social">&times;</span>
+        <h3>شارك إنجاز ملاك</h3>
+        <p>احتفل بهذا الإنجاز مع الآخرين!</p>
+        <div class="social-icons">
+            <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
+    
+    <!-- Thank You Modal -->
+    <div class="modal" id="thankYouModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">رسالة شكر خاصة</h2>
+            
+            <div class="modal-message">
+                <p>ملاك ة،</p>
+                <p>إنجازك الباهر بنسبة 87% هو شهادة حية على تفانيكِ، ذكائكِ، ومثابرتكِ. لقد كان شرفاً لي أن أتابع رحلتكِ الأكاديمية وأرى كيف تدفعين نفسكِ دائماً للتفوق.</p>
+                <p>شكراً لكِ لكونكِ مصدر إلهام - التزامكِ بالتعلم واستعدادكِ لمساعدة الآخرين يضع مثالاً رائعاً للجميع.</p>
+                <p>مبروك هذا الإنجاز المستحق. لا شك أن هذا مجرد بداية للعديد من النجاحات القادمة!</p>
+                <p style="text-align: left; font-style: italic; margin-top: 1rem;">"من سار على الدرب وصل"</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio Element for Glamour Song -->
+    <audio id="glamourSong" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- Replace with actual Glamour song URL -->
+    </audio>
+    
+    <script>
+        // Create particle fog
+        function createParticleFog() {
+            const fog = document.getElementById('particleFog');
+            fog.innerHTML = '';
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * window.innerWidth;
+                const posY = Math.random() * window.innerHeight + window.innerHeight;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 10;
+                const opacity = Math.random() * 0.3 + 0.1;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}px`;
+                particle.style.top = `${posY}px`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.opacity = opacity;
+                
+                fog.appendChild(particle);
+            }
+        }
+        
+        // Get Hijri date
+        function getHijriDate() {
+            const hijriMonths = [
+                'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 
+                'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 
+                'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
+            ];
+            
+            const today = new Date();
+            const hijriDate = new Intl.DateTimeFormat('ar-u-ca-islamic', {
+                day: 'numeric',
+                month: 'numeric',
+                year: 'numeric'
+            }).format(today);
+            
+            const parts = hijriDate.split('/');
+            const day = parts[0];
+            const month = hijriMonths[parseInt(parts[1]) - 1];
+            const year = parts[2];
+            
+            document.getElementById('hijriDate').textContent = `${day} ${month} ${year}`;
+        }
+        
+        // Music control
+        function setupMusicControl() {
+            const audio = document.getElementById('glamourSong');
+            const controlBtn = document.getElementById('musicControl');
+            let isPlaying = false;
+            
+            controlBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                    controlBtn.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    audio.play();
+                    controlBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            });
+        }
+        
+        // Language tabs functionality
+        function setupLanguageTabs() {
+            const tabs = document.querySelectorAll('.language-tab');
+            const contents = document.querySelectorAll('.language-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    const lang = tab.getAttribute('data-lang');
+                    document.getElementById(`${lang}-content`).classList.add('active');
+                });
+            });
+        }
+        
+        // Portrait progress animation on scroll
+        function setupProgressAnimation() {
+            const circle = document.querySelector('.portrait-progress-circle');
+            const circleLength = 565.48; // 2πr (r=90)
+            const offset = circleLength * 0.13; // 87% of circle
+            
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const scrollPercent = Math.min(scrollPosition / (windowHeight * 0.5), 1);
+                
+                if (scrollPercent <= 1) {
+                    const dashOffset = circleLength - (scrollPercent * (circleLength - offset));
+                    circle.style.strokeDashoffset = dashOffset;
+                }
+            });
+        }
+        
+        // Modal functionality
+        function setupModal() {
+            const modal = document.getElementById('thankYouModal');
+            const btn = document.getElementById('thankYouBtn');
+            const closeBtn = document.querySelector('.close-modal');
+            
+            btn.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                createRipple(btn);
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+        
+        // Social share panel
+        function setupSocialPanel() {
+            const panel = document.getElementById('socialPanel');
+            const btn = document.getElementById('shareBtn');
+            const closeBtn = document.querySelector('.close-social');
+            
+            btn.addEventListener('click', () => {
+                panel.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                createRipple(btn);
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                panel.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === panel) {
+                    panel.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+        
+        // Reaction wall functionality
+        function setupReactionWall() {
+            const wall = document.querySelector('.reaction-wall');
+            const emojis = ['❤️', '🌟', '👏', '🎉', '✨', '👍'];
+            
+            wall.addEventListener('click', (e) => {
+                const emoji = document.createElement('div');
+                emoji.classList.add('reaction-emoji');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // Position emoji at click location
+                emoji.style.left = `${e.clientX}px`;
+                emoji.style.top = `${e.clientY}px`;
+                
+                // Random animation duration
+                const duration = Math.random() * 3 + 3;
+                emoji.style.animationDuration = `${duration}s`;
+                
+                wall.appendChild(emoji);
+                
+                // Remove emoji after animation completes
+                setTimeout(() => {
+                    emoji.remove();
+                }, duration * 1000);
+            });
+        }
+        
+        // Ripple effect for buttons
+        function createRipple(button) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            
+            // Position ripple at click location
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size/2;
+            const y = event.clientY - rect.top - size/2;
+            
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            button.appendChild(ripple);
+            
+            // Remove ripple after animation
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+        
+        function setupRippleButtons() {
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    createRipple(this);
+                });
+            });
+        }
+        
+        // Confetti effect
+        function createConfetti(count) {
+            for (let i = 0; i < count; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * window.innerWidth;
+                const duration = Math.random() * 3 + 2;
+                const delay = Math.random() * 2;
+                const color = `hsl(${Math.random() * 60 + 30}, 100%, 50%)`; // Gold/yellow shades
+                const shape = Math.random() > 0.5 ? '50%' : '0';
+                
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.left = `${posX}px`;
+                confetti.style.animationDuration = `${duration}s`;
+                confetti.style.animationDelay = `${delay}s`;
+                confetti.style.backgroundColor = color;
+                confetti.style.borderRadius = shape;
+                
+                document.body.appendChild(confetti);
+                
+                // Remove confetti after animation completes
+                setTimeout(() => {
+                    confetti.remove();
+                }, (duration + delay) * 1000);
+            }
+        }
+        
+        // Scroll animations
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+        }
+        
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticleFog();
+            getHijriDate();
+            setupMusicControl();
+            setupLanguageTabs();
+            setupProgressAnimation();
+            setupModal();
+            setupSocialPanel();
+            setupReactionWall();
+            setupRippleButtons();
+            setupScrollAnimations();
+            
+            // Initial confetti burst
+            setTimeout(() => {
+                createConfetti(100);
+            }, 500);
+        });
+        
+        // Recreate particles on resize
+        window.addEventListener('resize', createParticleFog);
+    </script>
+</body>
+</html>
